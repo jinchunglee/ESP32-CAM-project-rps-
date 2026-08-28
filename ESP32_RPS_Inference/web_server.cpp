@@ -9,7 +9,7 @@ static const char* _STREAM_PART = "Content-Type: image/jpeg\r\nContent-Length: %
 
 static httpd_handle_t stream_httpd = NULL;
 
-// 引入宣告在 main.ino 的全域變數，這樣網頁才能抓到最新的 AI 文字
+// Import global variable declared in main.ino to fetch updated AI results for the web interface
 extern String global_ai_result;
 
 static esp_err_t stream_handler(httpd_req_t *req) {
@@ -27,8 +27,8 @@ static esp_err_t stream_handler(httpd_req_t *req) {
         if (!fb) {
             res = ESP_FAIL;
         } else {
-            // 💡【核心改變】：這裡完全沒有 runInference 了！
-            // Core 0 拿到圖之後，連 1 微秒都不耽誤，直接準備打包送網頁！
+            // 💡 [Core Architecture]: runInference is completely removed from this loop!
+            // Core 0 immediately packages and streams the frame without delay.
             
             if (fb->format != PIXFORMAT_JPEG) {
                 bool jpeg_converted = frame2jpg(fb, 80, &_jpg_buf, &_jpg_buf_len);
@@ -61,12 +61,12 @@ static esp_err_t stream_handler(httpd_req_t *req) {
         }
         if (res != ESP_OK) break;
 
-        // 🎯 【優化狀態改變檢查】：直接用 String 比較，絕對不會漏掉！
+        // 🎯 [Status Change Check]: Direct String comparison to ensure no state update is dropped
         static String last_printed_status = "";
 
         if (global_ai_result != last_printed_status) {
             Serial.println("Streaming... [" + global_ai_result + "]");
-            last_printed_status = global_ai_result; // 更新狀態快取
+            last_printed_status = global_ai_result; // Update status cache
         }
         
         delay(1); 
@@ -86,6 +86,6 @@ void startCameraServer() {
     };
     if (httpd_start(&stream_httpd, &config) == ESP_OK) {
         httpd_register_uri_handler(stream_httpd, &stream_uri);
-        Serial.println("網頁伺服器啟動成功 ✅ (已固定在 Core 0 運行)");
+        Serial.println("Web server started successfully ✅ (Pinned to Core 0)");
     }
 }
