@@ -3,7 +3,7 @@
 
 #include "esp_camera.h"
 
-// 宣告這兩個功能，讓主程式呼叫
+// Declare these two functions so that the main program can call them.
 void initAI(); 
 const char* runInference(camera_fb_t* fb);
 
