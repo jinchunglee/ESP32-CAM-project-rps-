@@ -1,7 +1,7 @@
 #ifndef CAMERA_CONFIG_H
 #define CAMERA_CONFIG_H
 
-#include "esp_camera.h" //官方的相機標頭檔
+#include "esp_camera.h" //official camera header
 
 
 #define PWDN_GPIO_NUM     32
@@ -21,7 +21,7 @@
 #define HREF_GPIO_NUM     23
 #define PCLK_GPIO_NUM     22
 
-// 宣告這個模組會用到的函式
+// Declare function from camera_config.cpp
 void initCamera();
 
 #endif
