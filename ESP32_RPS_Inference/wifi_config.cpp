@@ -1,18 +1,16 @@
 #include "wifi_config.h"
-#include <Arduino.h> // 記得加這一行才能用 Serial
+#include <Arduino.h> // Include Arduino header to enable Serial communication
 
 const char* ssid = "JamesLee";
 const char* password = "920501fu";
 
 void initWiFi() {
     WiFi.begin(ssid, password);
-    Serial.print("連線中 WiFi");
+    Serial.print("Connecting to WiFi");
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
         Serial.print(".");
     }
-    Serial.println("\nWiFi 已連線！ IP 位址為: ");
+    Serial.println("\nWiFi connected! IP address: ");
     Serial.println(WiFi.localIP());
 }
-
-
