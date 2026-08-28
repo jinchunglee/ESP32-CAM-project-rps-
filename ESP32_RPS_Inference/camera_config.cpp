@@ -1,7 +1,7 @@
 #include "camera_config.h"
-#include <Arduino.h>       // 【關鍵】這一行必須加上！對標Serial
+#include <Arduino.h>       // [Key Requirement] Required for Serial communication
 
-// 這裡寫你的腳位 define 和 initCamera() 的具體動作
+// Pin definitions and initCamera() implementation
 void initCamera() {
     camera_config_t config;
     config.ledc_channel = LEDC_CHANNEL_0;
@@ -30,9 +30,9 @@ void initCamera() {
 
     esp_err_t err = esp_camera_init(&config);
     if (err != ESP_OK) {
-        Serial.printf("相機初始化失敗 0x%x\n", err);
-        while(1);
+        Serial.printf("Camera initialization failed with error 0x%x\n", err);
+        while(1); // Block execution on failure
     }
-    // 【修正】把原本原本留在這裡的第二個 esp_camera_init 刪掉了！
-    Serial.println("相機硬體初始化成功 ✅");
+    // [Fix]: Removed redundant duplicate call to esp_camera_init
+    Serial.println("Camera hardware initialized successfully ✅");
 }
