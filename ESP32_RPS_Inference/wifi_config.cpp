@@ -1,8 +1,8 @@
 #include "wifi_config.h"
 #include <Arduino.h> // Include Arduino header to enable Serial communication
 
-const char* ssid = "JamesLee";
-const char* password = "920501fu";
+const char* ssid = "";// change to your own wifi  
+const char* password = "";// change to your own password
 
 void initWiFi() {
     WiFi.begin(ssid, password);
