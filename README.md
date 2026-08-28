@@ -8,8 +8,8 @@
 
 An end-to-end TinyML gesture recognition system deployed on the ESP32-CAM microcontroller. This project covers the full engineering lifecycle: from training custom neural network models from scratch in Google Colab with Post-Training Quantization (INT8), to asymmetric FreeRTOS dual-core task scheduling, zero-dynamic-allocation memory management (with memory alignment optimization) on ESP32, and real-time streaming alongside web server inference output.
 
-![ESP32-CAM Hardware Setup](pic/ESP32.jpg)
 
+<img src="pic/ESP32.jpg" width="30%">
 ---
 
 ## 🎬 Live Demo & Output Showcase
@@ -19,8 +19,7 @@ An end-to-end TinyML gesture recognition system deployed on the ESP32-CAM microc
 > 📺 **[Watch Full Demonstration Video on YouTube](https://youtu.be/n_18eMHc4QQ)**
 
 ### 2. Real-Time Gesture Recognition Output (Scissors Recognition)
-![Scissors Gesture Recognition Output](pic/model_CV2_test.png)
-
+<img src="pic/model_CV2_test.png" width="50%">
 ---
 
 ## 🌟 Key Technical Features
@@ -38,13 +37,14 @@ An end-to-end TinyML gesture recognition system deployed on the ESP32-CAM microc
 ### 1. FreeRTOS Dual-Core Task Pipeline
 Core 0 processes asynchronous Wi-Fi connectivity and HTTP client requests, while Core 1 continuously executes camera frame acquisition, image preprocessing, and neural network inference.
 
-![FreeRTOS Dual-Core Task Pipeline](pic/1.png)
+
+<img src="pic/1.png" width="50%">
 
 ### 2. PSRAM Tensor Arena Partitioning & Alignment
 The statically pre-allocated and aligned 200 KB PSRAM space is partitioned into three contiguous regions: Region A (Input Tensor Buffer), Region B (Intermediate Scratchpad Buffer), and Region C (Output Class Probabilities Buffer).
 
-![PSRAM Memory Layout](pic/2.png)
 
+<img src="pic/2.png" width="50%">
 ---
 
 ## 🔄 System Execution Flow
@@ -57,13 +57,14 @@ The system execution pipeline consists of 5 highly efficient processing steps:
 4. **Model Inference Execution:** Calls `interpreter->Invoke()` to execute quantized matrix multiply-accumulate operations.
 5. **Thread-Safe Result Output:** Classification results are pushed via a thread-safe FreeRTOS Queue to the Web UI and Serial Monitor in real time.
 
-![Overall System Flowchart](pic/3.png)
+<img src="pic/3.png" width="30%">
 
 ---
 
 ## 🛠️ Hardware Setup
 
-![ESP32-CAM Development Board](pic/ESP32.jpg)
+<img src="pic/ESP32.jpg" width="30%">
+
 
 * **Microcontroller:** ESP32-CAM Development Board (equipped with OV2640 camera module).
 * **Power Supply:** External 5V / 2A dedicated power supply recommended (ensures stable Wi-Fi transmission and camera sensor operation).
