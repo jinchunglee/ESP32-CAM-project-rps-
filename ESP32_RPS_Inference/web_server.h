@@ -3,7 +3,7 @@
 
 #include "esp_http_server.h"
 
-// 宣告：主程式 setup() 只要呼叫這個功能就能開啟網頁
+// Declaration: The main program `setup()` will open the webpage whenever this function is called.
 void startCameraServer();
 
 #endif
